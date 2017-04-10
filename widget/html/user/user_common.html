@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body>
+
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item" onclick="active()" tapmode>
+        <i class="aui-iconfont aui-icon-star"></i>
+        <div class="aui-bar-tab-label">热门活动</div>
+    </div>
+    <div class="aui-bar-tab-item" onclick="mySociety()" tapmode>
+        <i class="aui-iconfont aui-icon-like"></i>
+        <div class="aui-bar-tab-label">我的社团</div>
+    </div>
+    <div class="aui-bar-tab-item" onclick="message()" tapmode>
+        <i class="aui-iconfont aui-icon-comment"></i>
+        <div class="aui-bar-tab-label">消息</div>
+    </div>
+    <div class="aui-bar-tab-item" onclick="info()" tapmode>
+        <i class="aui-iconfont aui-icon-my"></i>
+        <div class="aui-bar-tab-label">个人中心</div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var footer = $api.byId('footer');
+    var footerPos = $api.offset(footer);
+    /**
+     * 热门活动
+     */
+    function active() {
+        api.openFrame({
+            name: 'active',
+            url: 'user_active.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.frameHeight - 45 - footerPos.h
+            },
+            pageParam: {
+                name: 'active'
+            },
+            bounces: false
+        });
+        changeIndexFrame(0);
+    }
+    /**
+     * 我的社团
+     */
+    function mySociety() {
+        api.openFrame({
+            name: 'mysociety',
+            url: 'user_my_society.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.frameHeight - 45 - footerPos.h
+            },
+            pageParam: {
+                name: 'mysociety'
+            },
+            bounces: false
+        });
+        changeIndexFrame(1);
+    }
+    /**
+     * 消息
+     */
+    function message() {
+        api.openFrame({
+            name: 'societylist',
+            url: 'user_message.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.frameHeight - 45 - footerPos.h
+            },
+            pageParam: {
+                name: 'message'
+            },
+            bounces: false
+        });
+        changeIndexFrame(2);
+    }
+    /**
+     * 个人中心
+     */
+    function info() {
+        api.openFrame({
+            name: 'mysociety',
+            url: 'user_info.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.frameHeight - 45 - footerPos.h
+            },
+            pageParam: {
+                name: 'info'
+            },
+            bounces: false
+        });
+        changeIndexFrame(3);
+    }
+    //导航节点获取
+    var aFooterList = $api.domAll('#footer .aui-bar-tab-item');
+    /**
+     * 底部导航切换
+     * @param index
+     */
+    var changeIndexFrame = function (index) {
+        for (var i = 0; i < 4; i++) {
+            if (i == index) {
+                $api.addCls(aFooterList[index], 'aui-active');
+            } else {
+                $api.removeCls(aFooterList[i], 'aui-active');
+            }
+        }
+        ;
+    };
+    apiready = function () {
+        active();
+    };
+</script>
+</html>
